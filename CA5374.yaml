@@ -5,8 +5,16 @@ rules:
     message: >
       XslTransform is vulnerable when operating on untrusted input. An attack could execute arbitrary code.
     patterns:
-      - pattern-either: 
-        - pattern: XslTransform $VAR=new XslTransform();
-        - pattern: $VAR.Load(...);
-        - pattern: $VAR.Transform(...);
+      - pattern: |
+          XslTransform $VAR = new XslTransform();
+          ...
+          $VAR.Load(...);
+          ...
+          $VAR.Transform(...);
+      - pattern-not: |
+          XslCompiledTransform $VAR = new XslCompiledTransform();
+          ...
+          $VAR.Load(...);
+          ...
+          $VAR.Transform(...);
     severity: WARNING
