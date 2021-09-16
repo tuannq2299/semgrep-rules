@@ -1,0 +1,12 @@
+rules:
+  - id: CA5374
+    languages:
+      - C#
+    message: >
+      XslTransform is vulnerable when operating on untrusted input. An attack could execute arbitrary code.
+    patterns:
+      - pattern-either: 
+        - pattern: XslTransform $VAR=new XslTransform();
+        - pattern: $VAR.Load(...);
+        - pattern: $VAR.Transform(...);
+    severity: WARNING
