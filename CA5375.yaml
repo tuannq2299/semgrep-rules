@@ -1,0 +1,10 @@
+rules:
+- id: CA5375
+  patterns:
+    - pattern: |
+        CloudStorageAccount $VAR = new CloudStorageAccount();
+        ...
+        $VAR.GetSharedAccessSignature(...);
+  message: Semgrep found a match
+  languages: [csharp]
+  severity: WARNING
