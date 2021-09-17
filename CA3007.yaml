@@ -1,0 +1,22 @@
+rules:
+- id: CA3007
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-601: URL Redirection to Untrusted Site (Open Redirect)'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca3007
+    category: security
+  message: |
+    Potentially untrusted HTTP request input reaches an HTTP response redirect.
+    Some approaches to fixing open redirect vulnerabilities include:
+    - Don't allow users to initiate redirects.
+    - Don't allow users to specify any part of the URL in a redirect scenario.
+    - Restrict redirects to a predefined "allow list" of URLs.
+    - Validate redirect URLs.
+    - If applicable, consider using a disclaimer page when users are being redirected away from your site.
+  patterns:
+    - pattern: |
+        string $INPUT = $REQUEST.$PARAMS[$USER_CONTROLLED];
+        ...
+        $X.$METHOD.Redirect($INPUT);

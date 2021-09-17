@@ -1,0 +1,22 @@
+rules:
+- id: CA3005
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-90: Improper Neutralization of Special Elements used in an LDAP Query (LDAP Injection)'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca3005
+    category: security
+  message: |
+    Potentially untrusted HTTP request input reaches an LDAP statement.
+    For the user-controlled portion of LDAP statements, consider one o:
+    - Allow only a safe list of non-special characters.
+    - Disallow special character
+    - Escape special characters.
+  patterns:
+    - pattern-inside: using System.DirectoryServices;...
+    - pattern: |
+        string $INPUT = $REQUEST.$PARAMS[$USER_CONTROLLED];
+        ...
+        string $FILTER = "..." + $INPUT + "...";
+        DirectorySearcher $SEARCHER = new DirectorySearcher($FILTER);
