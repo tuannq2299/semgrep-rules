@@ -1,0 +1,18 @@
+rules:
+- id: CA5377
+  metadata:
+    cwe: ''
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5377
+  patterns:
+    - pattern: |
+        new CloudAppendBlob(null);
+        ...
+        string $X = null;
+        ...
+        $VAR.GetSharedAccessSignature(..., $X,...);
+  message: |
+    Use container level access policy: 
+    A container-level access policy can be modified or revoked at any time. It provides greater flexibility and control over the permissions that are granted.
+  languages: [csharp]
+  severity: WARNING

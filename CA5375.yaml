@@ -1,10 +1,16 @@
 rules:
-- id: CA5375
-  patterns:
-    - pattern: |
-        CloudStorageAccount $VAR = new CloudStorageAccount();
-        ...
-        $VAR.GetSharedAccessSignature(...);
-  message: Semgrep found a match
-  languages: [csharp]
-  severity: WARNING
+  - id: CA5375
+    languages:
+      - csharp
+    message: Do not use account shared access signature
+    metadata:
+      cwe: "CWE-284: Improper Access Control"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5375
+    patterns:
+      - pattern-inside: using Microsoft.WindowsAzure.Storage;
+      - pattern: |
+          CloudStorageAccount $VAR = new CloudStorageAccount();
+          ...
+          $VAR.GetSharedAccessSignature(...);
+    severity: WARNING
