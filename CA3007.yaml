@@ -19,4 +19,4 @@ rules:
     - pattern: |
         string $INPUT = $REQUEST.$PARAMS[$USER_CONTROLLED];
         ...
-        $X.$METHOD.Redirect($INPUT);
+        $HTTPRESPONSE.Redirect($INPUT);
