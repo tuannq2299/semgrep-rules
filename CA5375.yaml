@@ -4,7 +4,7 @@ rules:
       - csharp
     message: Do not use account shared access signature
     metadata:
-      cwe: "CWE-284: Improper Access Control"
+      cwe: "CWE-285: Improper Authorization"
       references:
         - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5375
     patterns:

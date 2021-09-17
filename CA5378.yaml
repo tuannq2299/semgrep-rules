@@ -1,0 +1,13 @@
+rules:
+  - id: CA5378
+    languages:
+      - csharp
+    message: >
+      Do not disable ServicePointManagerSecurityProtocols
+    metadata:
+      cwe: "CWE-295: Improper Certificate Validation"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5378
+    pattern: AppContext.SetSwitch(..., true);
+    fix: AppContext.SetSwitch(..., false);
+    severity: WARNING

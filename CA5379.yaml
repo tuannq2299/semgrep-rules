@@ -1,0 +1,25 @@
+rules:
+  - id: CA5379
+    languages:
+      - csharp
+    message: >
+      Ensure key derivation function algorithm is sufficiently strong
+    metadata:
+      cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5379
+    patterns:
+      - pattern-either: 
+          - pattern: |
+              new $CLASS(..., HashAlgorithmName.MD5);
+
+          - pattern: |
+              class $CLASS : Rfc2898DeriveBytes{
+                ...
+                $CLASS(..., HashAlgorithmName $H) : base(...,$H){...}
+                ...
+                HashAlgorithmName HashAlgorithm { get; set;}
+              }
+          - pattern: |
+              $VAR.HashAlgorithm = HashAlgorithmName.$Y;
+    severity: WARNING

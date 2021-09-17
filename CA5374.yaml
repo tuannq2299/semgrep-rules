@@ -1,27 +1,26 @@
 rules:
-- id: CA5374
-  metadata: 
-    cwe: 'CWE-20: Improper Input Validation'
-    references: 
-      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5374
-  patterns:
-    - pattern-inside:
-        using System.Xml.Xsl;
-        ...
-    - pattern: |
-        XslTransform $VAR = new XslTransform();
-        ...
-        $VAR.Load(...);
-        ...
-        $VAR.Transform(...);
-    - pattern-not: |
-        XslCompiledTransform $VAR = new XslCompiledTransform();
-        ...
-        $VAR.Load(...);
-        ...
-        $VAR.Transform(...);
-  message: |
-     Do not use XslTransform: 
-     XslTransform is vulnerable when operating on untrusted input. An attack could execute arbitrary code.
-  languages: [csharp]
-  severity: WARNING
+  - id: CA5374
+    languages:
+      - csharp
+    message: >
+      XslTransform is vulnerable when operating on untrusted input:
+      An attack could execute arbitrary code.
+    metadata:
+      cwe: "CWE-20: Improper Input Validation"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5374
+    patterns:
+      - pattern-inside: using System.Xml.Xsl; ...
+      - pattern: |
+          XslTransform $VAR = new XslTransform();
+          ...
+          $VAR.Load(...);
+          ...
+          $VAR.Transform(...);
+      - pattern-not: |
+          XslCompiledTransform $VAR = new XslCompiledTransform();
+          ...
+          $VAR.Load(...);
+          ...
+          $VAR.Transform(...);
+    severity: WARNING
