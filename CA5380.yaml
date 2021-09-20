@@ -1,0 +1,15 @@
+rules:
+- id: CA5380
+  pattern: |
+      var $X = StoreName.Root;
+      ...
+      var $Y = new X509Store($X);
+      ...
+      $Y.Add(...);
+  message: Do not add certificates to root store
+  metadata:
+    cwe: 'CWE-295: Improper Certificate Validation'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5380
+  languages: [csharp]
+  severity: WARNING

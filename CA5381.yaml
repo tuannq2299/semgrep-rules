@@ -1,0 +1,17 @@
+rules:
+- id: CA5381
+  pattern: |
+      var $VAR = StoreName.Root;
+      ...
+      $VAR = StoreName.My;
+      ...
+      new X509Store($VAR);
+      ...
+      x509Store.Add(...);
+  message: Ensure certificates are not added to root store
+  metadata:
+    cwe: 'CWE-295: Improper Certificate Validation'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5381
+  languages: [csharp]
+  severity: WARNING

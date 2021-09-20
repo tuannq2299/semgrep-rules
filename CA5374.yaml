@@ -17,10 +17,4 @@ rules:
           $VAR.Load(...);
           ...
           $VAR.Transform(...);
-      - pattern-not: |
-          XslCompiledTransform $VAR = new XslCompiledTransform();
-          ...
-          $VAR.Load(...);
-          ...
-          $VAR.Transform(...);
     severity: WARNING

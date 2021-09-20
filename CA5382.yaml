@@ -1,0 +1,36 @@
+rules:
+- id: CA5382
+  patterns:
+    # - pattern-not: |
+    #     public class Startup
+    #     {
+    #         public void Configure(...)
+    #         {
+    #             app.UseCookiePolicy(
+    #                 new CookiePolicyOptions
+    #                 {
+    #                     Secure = CookieSecurePolicy.Always
+    #                 });
+    #         }
+    #     }
+    - pattern-inside: | 
+        using Microsoft.AspNetCore.Http;
+        using Microsoft.AspNetCore.Http.Internal;
+        ...
+    -  pattern: |
+        var $VAR = new CookieOptions();
+        ...
+        $VAR.Secure = false;
+        ...
+        var $X = new ResponseCookies(...);
+        ...
+        $X.Append(..., $VAR);
+          
+  message: Use secure cookies in ASP.NET Core
+  metadata:
+    cwe: 'CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5382
+  languages: [csharp]
+  fix: $VAR.Secure = true;
+  severity: WARNING
