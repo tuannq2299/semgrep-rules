@@ -1,0 +1,19 @@
+rules:
+  - id: CA5385
+    languages:
+      - csharp
+    message: Use Rivest–Shamir–Adleman (RSA) algorithm with sufficient key size
+    patterns:
+      - pattern-inside: |
+          using System.Security.Cryptography;
+          ...
+      - pattern: |
+          new RSACng($X);
+      - metavariable-comparison:
+          comparison: $X < 2048
+          metavariable: $X
+      metadata:
+    cwe: 'CWE-326: Inadequate Encryption Strength'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5385
+    severity: WARNING

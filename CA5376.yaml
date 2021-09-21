@@ -9,6 +9,12 @@ rules:
       cwe: "CWE-200: Exposure of Sensitive Information to an Unauthorized Actor"
       references:
         - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5376
-    pattern: SharedAccessProtocol $VAR = SharedAccessProtocol.HttpsOrHttp;
+    patterns:
+      - pattern-inside: |
+          using Microsoft.WindowsAzure.Storage;
+          using Microsoft.WindowsAzure.Storage.File;
+          ...
+      - pattern: |
+          SharedAccessProtocol $VAR = SharedAccessProtocol.HttpsOrHttp;
     fix: SharedAccessProtocol $VAR = SharedAccessProtocol.HttpsOnly;
     severity: WARNING

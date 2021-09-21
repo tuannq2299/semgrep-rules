@@ -1,0 +1,15 @@
+rules:
+- id: CA5384
+  patterns:
+    - pattern-inside: |
+        using System.Security.Cryptography;
+        ...
+    - pattern: |
+        new DSACng();
+  message: Do not use digital signature algorithm (DSA)
+  languages: [csharp]
+  metadata:
+    cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5384
+  severity: WARNING

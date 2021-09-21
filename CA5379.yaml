@@ -9,6 +9,9 @@ rules:
       references:
         - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5379
     patterns:
+      - pattern-inside: |
+          using System.Security.Cryptography;
+          ...
       - pattern-either: 
           - pattern: |
               new $CLASS(..., HashAlgorithmName.MD5);

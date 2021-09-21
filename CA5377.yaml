@@ -11,6 +11,10 @@ rules:
       references:
         - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5377
     patterns:
+      - pattern-inside: |
+          using Microsoft.WindowsAzure.Storage;
+          using Microsoft.WindowsAzure.Storage.Blob;
+          ...
       - pattern: |
           new CloudAppendBlob(null);
           ...

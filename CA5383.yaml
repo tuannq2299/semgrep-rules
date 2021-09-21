@@ -1,0 +1,23 @@
+rules:
+- id: CA5383
+  patterns:
+    - pattern-inside: |
+        using Microsoft.AspNetCore.Http;
+        using Microsoft.AspNetCore.Http.Internal;
+        ...
+    -  pattern: |
+        var $VAR = new CookieOptions();
+        ...
+        $VAR.Secure = false;
+        ...
+        var $X = new ResponseCookies(...);
+        ...
+        $X.Append(..., $VAR);
+          
+  message: Ensure use secure cookies in ASP.NET Core
+  languages: [csharp]
+  metadata:
+    cwe: 'CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5383
+  severity: WARNING

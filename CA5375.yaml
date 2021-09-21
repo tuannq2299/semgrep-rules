@@ -8,7 +8,9 @@ rules:
       references:
         - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5375
     patterns:
-      - pattern-inside: using Microsoft.WindowsAzure.Storage;
+      - pattern-inside: |
+          using Microsoft.WindowsAzure.Storage;
+          ...
       - pattern: |
           CloudStorageAccount $VAR = new CloudStorageAccount();
           ...

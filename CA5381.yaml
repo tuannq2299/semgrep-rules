@@ -1,13 +1,17 @@
 rules:
 - id: CA5381
-  pattern: |
-      var $VAR = StoreName.Root;
-      ...
-      $VAR = StoreName.My;
-      ...
-      new X509Store($VAR);
-      ...
-      x509Store.Add(...);
+  patterns: 
+    - pattern-inside: |
+        using System.Security.Cryptography.X509Certificates;
+        ...
+    - pattern: |
+        var $VAR = StoreName.Root;
+        ...
+        $VAR = StoreName.My;
+        ...
+        new X509Store($VAR);
+        ...
+        x509Store.Add(...);
   message: Ensure certificates are not added to root store
   metadata:
     cwe: 'CWE-295: Improper Certificate Validation'
