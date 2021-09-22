@@ -1,0 +1,39 @@
+rules:
+  - id: CA2100_1
+    severity: WARNING
+    languages:
+      - csharp
+    message: Review SQL queries for security vulnerabilities
+    metadata:
+      cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2100
+    patterns:
+      - pattern-inside: |
+          SqlCommand $CMD = new SqlCommand(...);
+          ...
+      - pattern-either:
+        - pattern: |
+            $CMD.CommandText = ... + $X + ...;
+        - pattern: |
+            $CMD.CommandText = $X;
+            ...
+            $CMD.CommandText += $Y;
+        - pattern: |
+            $CMD.CommandText = String.Format($X, ...);
+        - pattern: |
+            $CMD.CommandText = $X;
+            ...
+            $CMD.CommandText += String.Format(...);
+        - pattern: |
+            string $SQL = ... + $X + ...;
+        - pattern: |
+            string $SQL = $X;
+            ...
+            $SQL += $Y;
+        - pattern: |
+            string $SQL = String.Format($X, ...);
+        - pattern: |
+            string $SQL = $X;
+            ...
+            $SQL += String.Format(...);
