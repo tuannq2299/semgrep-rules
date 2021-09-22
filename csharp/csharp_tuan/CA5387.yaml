@@ -1,0 +1,31 @@
+rules:
+- id: CA5387
+  patterns:
+    - pattern-inside: |
+        using System.Security.Cryptography;
+        ...
+    - pattern-either:
+      - pattern: |
+          var $VAR = new Rfc2898DeriveBytes(...);
+          ...
+          $VAR.GetBytes(...)
+      - pattern: |
+          var $VAR = new Rfc2898DeriveBytes(...,$X);
+          ...
+          $VAR.GetBytes(...)
+      - pattern: |
+          var $VAR = new Rfc2898DeriveBytes(...);
+          ...
+          $VAR.IterationCount = $X;
+          ...
+          $VAR.GetBytes(...)
+    - metavariable-comparison:
+        comparison: $X < 100000
+        metavariable: $X
+  message: Do not use weak key derivation function with insufficient iteration count
+  languages: [csharp]
+  metadata:
+    cwe: 'CWE-326: Inadequate Encryption Strength'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5387
+  severity: WARNING
