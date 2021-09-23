@@ -1,0 +1,28 @@
+rules:
+- id: CA3012
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-185: Incorrect Regular Expression'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca3012
+    category: security
+  message: |
+    Potentially untrusted HTTP request input reaches a regular expression.
+    Some mitigations against regex injections include:
+      - Always use a match timeout when using regular expressions.
+      - Avoid using regular expressions based on user input.
+      - Escape special characters from user input by calling System.Text.RegularExpressions.Regex.Escape or another method.
+      - Allow only non-special characters from user input.
+  patterns:
+    - pattern-inside: |
+        using System;
+        using System.Text.RegularExpressions;
+        ...
+    - pattern-either:
+      - pattern: |
+          Match $M = Regex.Match($SEARCH_ABLE_TEXT, ... + $INPUT + ...);
+      - pattern: |
+          Match $M = Regex.Match($SEARCH_ABLE_TEXT, $INPUT);
+
+          
