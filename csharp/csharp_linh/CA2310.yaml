@@ -1,0 +1,16 @@
+rules:
+  - id: CA2310
+    severity: WARNING
+    languages:
+      - csharp
+    message: Do not use insecure deserializer NetDataContractSerializer
+    metadata:
+      cwe: "CWE-502: Deserialization of Untrusted Data"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2310
+    patterns:
+      - pattern-inside: |
+          using System.Runtime.Serialization;
+          ...
+      - pattern: |
+          new NetDataContractSerializer();

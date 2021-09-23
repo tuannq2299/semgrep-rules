@@ -1,5 +1,5 @@
 rules:
-  - id: CA2100_1
+  - id: CA2100
     severity: WARNING
     languages:
       - csharp
@@ -10,7 +10,7 @@ rules:
         - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2100
     patterns:
       - pattern-inside: |
-          SqlCommand $CMD = new SqlCommand(...);
+          new SqlCommand(...);
           ...
       - pattern-either:
         - pattern: |
