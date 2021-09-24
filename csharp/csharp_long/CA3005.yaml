@@ -15,8 +15,19 @@ rules:
     - Escape special characters.
   patterns:
     - pattern-inside: using System.DirectoryServices;...
-    - pattern: |
-        string $INPUT = $REQUEST.$PARAMS[$USER_CONTROLLED];
-        ...
-        string $FILTER = "..." + $INPUT + "...";
-        DirectorySearcher $SEARCHER = new DirectorySearcher($FILTER);
+    - pattern-either:
+      - pattern: |
+          DirectorySearcher $SEARCHER = new DirectorySearcher($FILTER);
+      - pattern: |
+          DirectorySearcher $SEARCHER = new DirectorySearcher(... + $FILTER + ...);
+      - pattern: |
+          DirectorySearcher $SEARCHER = new DirectorySearcher(...);
+          ...
+          $SEARCHER.Filter = ... + $FILTER + ...;
+      - pattern: |
+          DirectorySearcher $SEARCHER = new DirectorySearcher(...);
+          ...
+          $SEARCHER.Filter = $FILTER;
+      
+      
+          

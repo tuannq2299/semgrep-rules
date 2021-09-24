@@ -1,0 +1,18 @@
+rules:
+  - id: CA2109
+    severity: WARNING
+    languages:
+      - csharp
+    message: Review visible event handlers
+    metadata:
+      cwe: "CWE-749: Exposed Dangerous Method or Function"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2109
+    patterns:
+      - pattern-either:
+        - pattern: |
+            public $T $F(object sender, $E e){
+              ...;
+            }
+        - pattern: |
+            public $T $F(object sender, $E e);

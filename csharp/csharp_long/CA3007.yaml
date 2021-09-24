@@ -16,7 +16,8 @@ rules:
     - Validate redirect URLs.
     - If applicable, consider using a disclaimer page when users are being redirected away from your site.
   patterns:
-    - pattern: |
-        string $INPUT = $REQUEST.$PARAMS[$USER_CONTROLLED];
-        ...
-        $HTTPRESPONSE.Redirect($INPUT);
+    - pattern-either:
+      - pattern: |
+          $X.Response.Redirect($INPUT);
+      - pattern: |
+          $X.Response.Redirect(... + $INPUT + ...);

@@ -14,8 +14,10 @@ rules:
       try{
         ...
       }
-      catch (Exception $EXCEP){
+      catch ($EXCEPTION $E){
         ...
       }
-  - pattern: $HTTPRESPONSE.Write($EXCEP.$METHOD());
+  - pattern-either: 
+    - pattern: $HTTPRESPONSE.$WRITE(..., $E.$METHOD(), ...);
+    - pattern: $HTTPRESPONSE.$WRITE(..., $E.$PARAM, ...);
  

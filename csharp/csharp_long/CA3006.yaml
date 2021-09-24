@@ -15,44 +15,8 @@ rules:
     - pattern-inside: using System.Diagnostics;...
     - pattern-either:
       - pattern: |
-          string $INPUT = $REQUEST.$METHOD[$USER_CONTROLLED];
-          ...
           Process.Start($INPUT);
       - pattern: |
-          public $T $F($X)
-          {
-            ... Process.Start($X);
-          }
-      - pattern: |
-          public $T $F($X)
-          {
-            ...
-            Process $Y = new Process();
-            $Y.StartInfo.FileName = $X;
-            $Y.Start();
-            ...
-          }
-      - pattern: |
-          public $T $F($Y)
-          {
-            ...
-            ProcessStartInfo $X = new ProcessStartInfo()
-            {
-              FileName = $Y
-            };
-            ...
-            Process.Start($X);
-          }
-      - pattern: |
-          public $T $F($Y)
-          {
-            ...
-            ProcessStartInfo $X = new ProcessStartInfo()
-            {
-              FileName = @"python.exe",
-              Arguments = $Y,
-              UseShellExecute = false
-            };
-            ...
-            Process.Start($X);
-          }
+          Process $Y = new Process();
+          $Y.StartInfo.FileName = $X;
+          $Y.Start();
