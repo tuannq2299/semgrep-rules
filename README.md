@@ -6,8 +6,6 @@
 
 This project is a collection of Semgrep rules which follow security guidelines for .NET and Java. Many of these rules haven't been tested in real life so they could be missing or not working properly. Contact us if you find any bugs in the rule.
 
-:copyright: FPT Software. All rights reserved
-
 References:
 
 - [GitHub / returntocorp / semgrep](https://github.com/returntocorp/semgrep)
