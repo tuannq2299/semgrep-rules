@@ -1,0 +1,29 @@
+rules:
+  - id: CA5391
+    languages:
+      - csharp
+    message: Use antiforgery tokens in ASP.NET Core MVC controllers
+    metadata:
+      cwe: 'Cross-Site Request Forgery (CSRF)'
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5391
+    patterns:
+      - pattern-inside: |
+          using Microsoft.AspNetCore.Mvc;
+          ...
+      - pattern: |
+          [$DATA]
+          public $T $F($X){...}
+      - pattern-not-inside: |
+          [ValidateAntiForgeryToken]
+          [$DATA]
+          public $T $F($X){...}
+      - metavariable-pattern:
+          metavariable: $DATA
+          patterns:
+            - pattern-either:
+                - pattern: HttpDelete
+                - pattern: HttpPut
+                - pattern: HttpPatch
+                - pattern: HttpPost
+    severity: WARNING

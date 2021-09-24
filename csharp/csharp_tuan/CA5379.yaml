@@ -2,7 +2,7 @@ rules:
   - id: CA5379
     languages:
       - csharp
-    message: >
+    message: |
       Ensure key derivation function algorithm is sufficiently strong
     metadata:
       cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
@@ -12,10 +12,11 @@ rules:
       - pattern-inside: |
           using System.Security.Cryptography;
           ...
-      - pattern-either: 
+      - pattern-either:
           - pattern: |
               new $CLASS(..., HashAlgorithmName.MD5);
-
+          - pattern: |
+              new $CLASS(..., HashAlgorithmName.SHA1);
           - pattern: |
               class $CLASS : Rfc2898DeriveBytes{
                 ...

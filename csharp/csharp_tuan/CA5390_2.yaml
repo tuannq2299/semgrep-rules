@@ -1,0 +1,16 @@
+rules:
+- id: CA5390_1
+  patterns:
+    - pattern-inside: |
+        using System.Security.Cryptography;
+        ...
+    - pattern-either:
+      - pattern: |
+          
+  message: Do not hard-code encryption key
+  languages: [csharp]
+  metadata: 
+    cwe: 'CWE-321: Use of Hard-coded Cryptographic Key'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5390
+  severity: WARNING

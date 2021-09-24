@@ -1,16 +1,24 @@
 rules:
-- id: CA5386
-  patterns:
-    - pattern-inside: |
-        using System.Net;
-        ...
-    - pattern-either:
-      - pattern: ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-      - pattern: ServicePointManager.SecurityProtocol = (SecurityProtocolType) 3072;
-  message: Avoid hardcoding SecurityProtocolType value
-  languages: [csharp]
-  metadata:
-    cwe: 'CWE-757: Selection of Less-Secure Algorithm During Negotiation ("Algorithm Downgrade")'
-    references:
-      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5386
-  severity: WARNING
+  - id: CA5386
+    languages:
+      - csharp
+    message: Avoid hardcoding SecurityProtocolType value
+    metadata:
+      cwe: 'CWE-757: Selection of Less-Secure Algorithm During Negotiation ("Algorithm
+        Downgrade")'
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5386
+    patterns:
+      - pattern-inside: |
+          using System.Net;
+          ...
+      - pattern-either:
+          - pattern: ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+          - pattern: ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11;
+          - pattern: ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+          - pattern: ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
+          - pattern: ServicePointManager.SecurityProtocol = (SecurityProtocolType) 192;
+          - pattern: ServicePointManager.SecurityProtocol = (SecurityProtocolType) 768;
+          - pattern: ServicePointManager.SecurityProtocol = (SecurityProtocolType) 3072;
+          - pattern: ServicePointManager.SecurityProtocol = (SecurityProtocolType) 12288;
+    severity: WARNING

@@ -1,5 +1,5 @@
 rules:
-  - id: CA5385
+  - id: CA5385_1
     languages:
       - csharp
     message: Use Rivest–Shamir–Adleman (RSA) algorithm with sufficient key size

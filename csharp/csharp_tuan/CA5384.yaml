@@ -1,11 +1,20 @@
 rules:
 - id: CA5384
   patterns:
+    - pattern-either:
+      - pattern: |
+          new DSACng();
+      - pattern: |
+          class $CLASS : DSACng{
+          ...
+          }
+      - pattern: |
+          AsymmetricAlgorithm.Create("DSA");
+      - pattern: |
+          CryptoConfig.CreateFromName("DSA");
     - pattern-inside: |
         using System.Security.Cryptography;
         ...
-    - pattern: |
-        new DSACng();
   message: Do not use digital signature algorithm (DSA)
   languages: [csharp]
   metadata:

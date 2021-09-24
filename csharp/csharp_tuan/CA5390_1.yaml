@@ -1,0 +1,44 @@
+rules:
+- id: CA5390_1
+  patterns:
+    - pattern-inside: |
+        using System.Security.Cryptography;
+        ...
+    - pattern-either:
+      - pattern: |
+          public $T $F($X){
+            ...
+            SymmetricAlgorithm $VAR = SymmetricAlgorithm.Create();
+            ...
+            byte[] $B = $DATA;
+            ...
+            $VAR.$FUNC($B, $X); 
+            ...
+          }
+      - pattern: |
+          public $T $F($X){
+            ...
+            byte[] $B = $DATA;
+            ...
+            SymmetricAlgorithm $VAR = SymmetricAlgorithm.Create();
+            ...
+            $VAR.$FUNC($B, $X); 
+            ...
+          }
+    - metavariable-pattern:
+        metavariable: $DATA
+        patterns:
+          - pattern-either:
+              - pattern: new byte[]{...}
+              - pattern: Encoding.ASCII.GetBytes("...")
+              - pattern: Convert.FromBase64String("...")
+    - metavariable-regex:
+        metavariable: $FUNC
+        regex: (CreateEncryptor|CreateDecryptor)
+  message: Do not hard-code encryption key
+  languages: [csharp]
+  metadata: 
+    cwe: 'CWE-321: Use of Hard-coded Cryptographic Key'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5390
+  severity: WARNING
