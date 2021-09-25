@@ -1,0 +1,27 @@
+rules:
+- id: CA5393
+  patterns:
+    - pattern-inside: |
+        using System.Runtime.InteropServices;
+        ...
+    - pattern-either:
+        - pattern: |
+            [DllImport("...")]
+            [DefaultDllImportSearchPaths(DllImportSearchPath.AssemblyDirectory)]
+            public static extern $T $F(...);
+        - pattern: |
+            [DllImport("...")]
+            [DefaultDllImportSearchPaths(DllImportSearchPath.UseDllDirectoryForDependencies)]
+            public static extern $T $F(...);
+        - pattern: |
+            [DllImport("...")]
+            [DefaultDllImportSearchPaths(DllImportSearchPath.ApplicationDirectory)]
+            public static extern $T $F(...);
+  message: Do not use unsafe DllImportSearchPath value
+  languages: [csharp]
+  metadata:
+    cwe: 'CWE-427: Uncontrolled Search Path Element'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5393
+  severity: WARNING
+

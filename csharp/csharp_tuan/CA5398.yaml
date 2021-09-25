@@ -1,0 +1,24 @@
+rules:
+  - id: CA5398
+    languages:
+      - csharp
+    message: Avoid hardcoded SslProtocols values
+    metadata:
+      cwe: 'CWE-757: Selection of Less-Secure Algorithm During Negotiation ("Algorithm
+        Downgrade")'
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5398
+    patterns:
+      - pattern-inside: |
+          using System.Security.Authentication;
+          ...
+      - pattern-either:
+          - pattern: SslProtocols $V = SslProtocols.Tls12;
+          - pattern: SslProtocols $V = SslProtocols.Tls13;
+          - pattern: SslProtocols $V = (SslProtocols) 3072;
+          - pattern: SslProtocols $V = (SslProtocols) 12288;
+          - pattern: return SslProtocols.Tls12;
+          - pattern: return SslProtocols.Tls13;
+          - pattern: return (SslProtocols) 3072;
+          - pattern: return (SslProtocols) 12288;
+    severity: WARNING

@@ -1,0 +1,25 @@
+rules:
+- id: CA5401
+  patterns:
+    - pattern-inside: |
+        using System.Security.Cryptography;
+        ...
+    - pattern-either:
+        - pattern: |
+            public $T $F ($X){
+              ...
+              AesCng $V = new AesCng();
+              ...
+              $V.IV = $X;
+              ...
+              $V.CreateEncryptor();
+              ...
+            }
+      
+  message: Do not use CreateEncryptor with non-default IV
+  languages: [csharp]
+  metadata:
+    cwe: ''
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5401
+  severity: WARNING

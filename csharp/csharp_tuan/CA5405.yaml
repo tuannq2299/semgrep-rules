@@ -1,0 +1,28 @@
+rules:
+- id: CA5405
+  patterns: 
+    - pattern-inside: |
+        using Microsoft.IdentityModel.Tokens;
+        ...
+    - pattern: |
+        TokenValidationParameters $V = new TokenValidationParameters();
+        ...
+        $V.$FUNC = (...) => { ... return true; };
+    - pattern-not-inside: |
+        TokenValidationParameters $V = new TokenValidationParameters();
+        ...
+        $V.$FUNC = (...) => {... return false; ... return true; };
+    - pattern-not-inside: |
+        TokenValidationParameters $V = new TokenValidationParameters();
+        ...
+        $V.$FUNC = (...) => { ... return true; ... return false; };
+    - metavariable-regex:
+        metavariable: $FUNC
+        regex: (AudienceValidator|LifetimeValidator)      
+  message: Do not always skip token validation in delegates
+  languages: [csharp]
+  metadata:
+    cwe: ''
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5405
+  severity: WARNING

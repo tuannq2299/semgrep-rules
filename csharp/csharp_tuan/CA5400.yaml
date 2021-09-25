@@ -1,0 +1,49 @@
+rules:
+- id: CA5400
+  patterns:
+    - pattern-inside: |
+        using System.Net.Http;
+        ...
+    - pattern-either:
+        - pattern: |
+            $T $F($Y){
+              ...
+              WinHttpHandler $V = new WinHttpHandler();
+              ...
+              $V.CheckCertificateRevocationList = $Y;
+              ...
+              HttpClient $X = new HttpClient($V);
+              ...
+            }
+        - pattern: |
+            $T $F(){
+              ...
+              bool $Y =...;
+              ...
+              WinHttpHandler $V = new WinHttpHandler();
+              ...
+              $V.CheckCertificateRevocationList = $Y;
+              ...
+              HttpClient $X = new HttpClient($V);
+              ...
+            }
+        - pattern: |
+            $T $F(){
+              ...
+              WinHttpHandler $V = new WinHttpHandler();
+              ...
+              bool $Y =...;
+              ...
+              $V.CheckCertificateRevocationList = $Y;
+              ...
+              HttpClient $X = new HttpClient($V);
+              ...
+            }
+  message: Ensure HttpClient certificate revocation list check is not disabled
+  languages: [csharp]
+  metadata:
+    cwe: 'CWE-299: Improper Check for Certificate Revocation'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5400
+  severity: WARNING
+

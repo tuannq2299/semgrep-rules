@@ -1,0 +1,21 @@
+rules:
+- id: CA5399
+  patterns:
+    - pattern-inside: |
+        using System.Net.Http;
+        ...
+    - pattern-either:
+        - pattern: |
+            WinHttpHandler $V = new WinHttpHandler();
+            ...
+            $V.CheckCertificateRevocationList = false;
+            ...
+            HttpClient $X = new HttpClient($V);
+      
+  message: Definitely disable HttpClient certificate revocation list check
+  languages: [csharp]
+  metadata:
+    cwe: 'CWE-299: Improper Check for Certificate Revocation'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5399
+  severity: WARNING

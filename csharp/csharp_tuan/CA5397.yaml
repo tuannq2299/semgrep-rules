@@ -1,0 +1,25 @@
+rules:
+  - id: CA5397
+    languages:
+      - csharp
+    message: Do not use deprecated SslProtocols values
+    metadata:
+      cwe: 'CWE-757: Selection of Less-Secure Algorithm During Negotiation ("Algorithm
+        Downgrade")'
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5397
+    patterns:
+      - pattern-inside: |
+          using System.Security.Authentication;
+          ...
+      - pattern-either:
+          - pattern: SslProtocols $V = SslProtocols.Tls11 | SslProtocols.Tls12;
+          - pattern: SslProtocols $V = SslProtocols.Tls;
+          - pattern: SslProtocols $V = SslProtocols.Tls11;
+          - pattern: SslProtocols $V = SslProtocols.Ssl2;
+          - pattern: SslProtocols $V = SslProtocols.Ssl3;
+          - pattern: SslProtocols $V = (SslProtocols) 12;
+          - pattern: SslProtocols $V = (SslProtocols) 48;
+          - pattern: SslProtocols $V = (SslProtocols) 192;
+          - pattern: SslProtocols $V = (SslProtocols) 768;
+    severity: WARNING
