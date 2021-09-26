@@ -1,0 +1,24 @@
+rules:
+  - id: CA2119
+    severity: WARNING
+    languages:
+      - csharp
+    message: Seal methods that satisfy private interfaces
+    metadata:
+      cwe: "CWE-749: Exposed Dangerous Method or Function"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2119
+    patterns:
+      - pattern-inside: |
+          interface $INT{
+            ...
+            $T $F(...);
+            ...
+          }
+          class $CLASS : $INT{
+            ...
+          }
+      - pattern: |
+          $T $F(...){
+            ...
+          }

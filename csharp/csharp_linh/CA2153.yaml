@@ -1,0 +1,36 @@
+rules:
+  - id: CA2153
+    severity: WARNING
+    languages:
+      - csharp
+    message: Avoid handling Corrupted State Exceptions
+    metadata:
+      cwe: "CWE-755: Improper Handling of Exceptional Conditions"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2153
+    patterns:
+      - pattern-inside: |
+          [HandleProcessCorruptedStateExceptions]
+          $T $F(...){
+            ...
+          }
+      - pattern: |
+          try
+          {
+            ...
+          }
+          catch (Exception e)
+          {
+            ...
+          }
+      - pattern-not-inside: |
+          try
+          {
+            ...
+          }
+          catch (Exception e)
+          {
+            ...
+            throw;
+            ...
+          }

@@ -1,0 +1,16 @@
+rules:
+  - id: CA2315
+    severity: WARNING
+    languages:
+      - csharp
+    message: Do not use insecure deserializer ObjectStateFormatter
+    metadata:
+      cwe: "CWE-502: Deserialization of Untrusted Data"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2315
+    patterns:
+      - pattern-inside: |
+          using System.Web.UI;
+          ...
+      - pattern: |
+          new ObjectStateFormatter();

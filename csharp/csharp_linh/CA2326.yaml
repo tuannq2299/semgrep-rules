@@ -1,0 +1,51 @@
+rules:
+  - id: CA2326
+    severity: WARNING
+    languages:
+      - csharp
+    message: Do not use TypeNameHandling values other than None
+    metadata:
+      cwe: "CWE-502: Deserialization of Untrusted Data"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2326
+    patterns:
+      - pattern-inside: |
+          using Newtonsoft.Json;
+          ...
+      - pattern-either:
+        - pattern: |
+            new JsonSerializerSettings
+            {
+              TypeNameHandling = TypeNameHandling.All
+            }
+        - pattern: |
+            new JsonSerializerSettings
+            {
+              TypeNameHandling = TypeNameHandling.Auto
+            }
+        - pattern: |
+            new JsonSerializerSettings
+            {
+              TypeNameHandling = TypeNameHandling.Arrays
+            }
+        - pattern: |
+            new JsonSerializerSettings
+            {
+              TypeNameHandling = TypeNameHandling.Objects
+            }
+        - pattern: |
+            $S = new JsonSerializerSettings();
+            ...
+            $S.TypeNameHandling = TypeNameHandling.All;
+        - pattern: |
+            $S = new JsonSerializerSettings();
+            ...
+            $S.TypeNameHandling = TypeNameHandling.Auto;
+        - pattern: |
+            $S = new JsonSerializerSettings();
+            ...
+            $S.TypeNameHandling = TypeNameHandling.Arrays;
+        - pattern: |
+            $S = new JsonSerializerSettings();
+            ...
+            $S.TypeNameHandling = TypeNameHandling.Objects;
