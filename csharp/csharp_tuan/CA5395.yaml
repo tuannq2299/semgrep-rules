@@ -1,0 +1,18 @@
+rules:
+- id: CA5395
+  patterns:
+    - pattern-inside: |
+        using Microsoft.AspNetCore.Mvc;
+        ...
+    - pattern: |
+        public $T $F(...){...}
+    - pattern-not-inside: |
+        [HttpGet]  
+        public $T $F(...){...}
+  message: Miss HttpVerb attribute for action methods
+  languages: [csharp]
+  metadata:
+    cwe: ''
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5395
+  severity: WARNING

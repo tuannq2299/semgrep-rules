@@ -1,0 +1,16 @@
+rules:
+- id: CA5392
+  patterns:
+    - pattern-inside: |
+        using System.Runtime.InteropServices;
+        ...
+    - pattern: |
+        [DllImport("...")]
+        public static extern $T $F(...);
+  message: Use DefaultDllImportSearchPaths attribute for P/Invokes
+  languages: [csharp]
+  metadata:
+    cwe: 'CWE-427: Uncontrolled Search Path Element'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5392
+  severity: WARNING

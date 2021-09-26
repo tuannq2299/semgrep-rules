@@ -1,0 +1,19 @@
+rules:
+- id: CA5404
+  patterns:
+    - pattern-inside: |
+        using Microsoft.IdentityModel.Tokens;
+        ...
+    - pattern-inside: TokenValidationParameters $V = new TokenValidationParameters();...
+    - pattern-either:
+        - pattern: $V.RequireExpirationTime = false;
+        - pattern: $V.ValidateAudience = false;
+        - pattern: $V.ValidateIssuer = false;
+        - pattern: $V.ValidateLifetime = false;
+  message: Do not disable token validation checks
+  languages: [csharp]
+  metadata:
+    cwe: 'CWE-287: Improper Authentication'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5404
+  severity: WARNING

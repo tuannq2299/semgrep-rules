@@ -1,0 +1,10 @@
+rules:
+- id: CA5394
+  pattern: random.Next();
+  message: Do not use insecure randomness
+  languages: [csharp]
+  metadata:
+    cwe: 'CWE-326: Inadequate Encryption Strength'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5385
+  severity: WARNING

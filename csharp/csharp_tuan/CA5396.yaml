@@ -1,0 +1,12 @@
+rules:
+- id: CA5396
+  pattern: |
+      HttpCookie $VAR = new HttpCookie("...");
+      $VAR.HttpOnly = false;
+  message: Set HttpOnly to true for HttpCookie
+  languages: [csharp]
+  metadata:
+    cwe: 'CWE-1004: Sensitive Cookie Without "HttpOnly" Flag'
+    references:
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5396
+  severity: WARNING
