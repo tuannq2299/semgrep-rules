@@ -4,7 +4,7 @@
 
 > Semgrep is a fast, open-source, static analysis tool for finding bugs and enforcing code standards at editor, commit, and CI time. [Get started →.](https://github.com/returntocorp/semgrep#getting-started)
 
-This project is a collection of Semgrep rules which follow security guidelines for .NET and Java. Many of these rules haven't been tested in real life so they could be missing or not working properly. Contact us if you find any bugs in the rule.
+This project is a collection of Semgrep rules which followed security guidelines for .NET and Java. Many of these rules have just been tested in a few testcases (mostly provided by Microsoft or Oracle) so they may not work correctly every time. Contact us if you find any bugs in the rule.
 
 References:
 
@@ -112,4 +112,4 @@ References:
 | [CA5404: Do not disable token validation checks](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5404) |                    |                                                              |                                               |
 | [CA5405: Do not always skip token validation in delegates](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5405) |                    |                                                              |                                               |
 
-## Rule for Java
+## Rules for Java
