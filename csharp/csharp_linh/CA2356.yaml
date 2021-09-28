@@ -1,0 +1,24 @@
+rules:
+  - id: CA2356
+    severity: WARNING
+    languages:
+      - csharp
+    message: Unsafe DataSet or DataTable type in web deserialized object graph
+    metadata:
+      cwe: "CWE-502: Deserialization of Untrusted Data"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2356
+    patterns:
+      - pattern-either:
+        - pattern: |
+            [WebMethod]
+            $T $F(DataTable $A, ...){...}
+        - pattern: |
+            [WebMethod]
+            $T $F(DataSet $A, ...){...}
+        - pattern: |
+            [OperationContract]
+            $T $F(DataTable $A, ...){...}
+        - pattern: |
+            [OperationContract]
+            $T $F(DataSet $A, ...){...}

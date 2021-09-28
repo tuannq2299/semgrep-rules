@@ -1,0 +1,24 @@
+rules:
+  - id: CA2329_2330
+    severity: WARNING
+    languages:
+      - csharp
+    message: Do not deserialize with JsonSerializer using an insecure configuration / Ensure that JsonSerializer has a secure configuration when deserializing
+    metadata:
+      cwe: "CWE-502: Deserialization of Untrusted Data"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2329
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2330
+    patterns:
+      - pattern-inside: |
+          new JsonSerializer();
+          ...
+      - pattern-either:
+          - pattern:
+              $S.Deserialize<$T>(...);
+          - pattern:
+              $S.Deserialize(...);
+      - pattern-not-inside:
+          ...
+          $S.SerializationBinder = ...;
+          ...

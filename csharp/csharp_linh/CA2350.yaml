@@ -1,0 +1,16 @@
+rules:
+  - id: CA2350
+    severity: WARNING
+    languages:
+      - csharp
+    message: Ensure DataTable.ReadXml()'s input is trusted
+    metadata:
+      cwe: "CWE-502: Deserialization of Untrusted Data"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2350
+    patterns:
+      - pattern-inside: |
+          new DataTable();
+          ...
+      - pattern:
+          $S.ReadXml(...);

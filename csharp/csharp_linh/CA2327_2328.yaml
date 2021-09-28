@@ -1,17 +1,16 @@
 rules:
-  - id: CA2327
+  - id: CA2327_2328
     severity: WARNING
     languages:
       - csharp
-    message: Do not use insecure JsonSerializerSettings
+    message: Do not use insecure JsonSerializerSettings / Ensure that JsonSerializerSettings are secure
     metadata:
       cwe: "CWE-502: Deserialization of Untrusted Data"
       references:
         - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2327
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2328
     patterns:
       - pattern-inside: |
-          using Newtonsoft.Json;
-          ...
           new JsonSerializerSettings();
           ...
       - pattern-either:

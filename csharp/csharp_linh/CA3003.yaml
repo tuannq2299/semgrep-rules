@@ -1,0 +1,16 @@
+rules:
+  - id: CA3003
+    severity: WARNING
+    languages:
+      - csharp
+    message: Review code for file path injection vulnerabilities
+    metadata:
+      cwe: "CWE-74: Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca3003
+    patterns:
+      - pattern-inside: |
+          Request.Params[...];
+          ...
+      - pattern: |
+          File.Open(...)

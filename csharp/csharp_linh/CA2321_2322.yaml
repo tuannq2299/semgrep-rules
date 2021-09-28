@@ -1,13 +1,14 @@
 rules:
-  - id: CA2321
+  - id: CA2321_2322
     severity: WARNING
     languages:
       - csharp
-    message: Do not deserialize with JavaScriptSerializer using a SimpleTypeResolver
+    message: Do not deserialize with JavaScriptSerializer using a SimpleTypeResolver / Ensure JavaScriptSerializer is not initialized with SimpleTypeResolver before deserializing
     metadata:
       cwe: "CWE-502: Deserialization of Untrusted Data"
       references:
         - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2321
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2322
     patterns:
       - pattern-inside: |
           using System.Web.Script.Serialization;

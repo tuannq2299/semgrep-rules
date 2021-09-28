@@ -1,0 +1,28 @@
+rules:
+  - id: CA3001
+    severity: WARNING
+    languages:
+      - csharp
+    message: Review code for SQL injection vulnerabilities
+    metadata:
+      cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca3001
+    patterns:
+      - pattern-inside: |
+          new SqlCommand(){
+            ...
+          };
+      - pattern-either:
+        - pattern: |
+            $CMD = ... + $X + ...;
+        - pattern: |
+            $CMD = $X;
+            ...
+            $CMD += $Y;
+        - pattern: |
+            $CMD = String.Format($X, ...);
+        - pattern: |
+            $CMD = $X;
+            ...
+            $CMD += String.Format(...);

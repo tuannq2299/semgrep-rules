@@ -1,0 +1,18 @@
+rules:
+  - id: CA3002
+    severity: WARNING
+    languages:
+      - csharp
+    message: Review code for XSS vulnerabilities
+    metadata:
+      cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      references:
+        - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca3002
+    patterns:
+      - pattern-inside: |
+          Request.Form[...];
+          ...
+      - pattern: |
+          Response.Write("..." + $X + "...");
+      - pattern-not-inside: |
+          Response.Write("..." + Server.HtmlEncode(...) + "...");
