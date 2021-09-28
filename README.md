@@ -114,69 +114,69 @@ References:
 
 ## Rules for Java
 
-|  #   | Name                                                         | Supported | Note | Link |
-| :--: | ------------------------------------------------------------ | :-------: | :--- | :--: |
-| 1-1  | DOS-1: Beware of activities that may use disproportionate resources |           |      |      |
-| 1-2  | DOS-2: Release resources in all cases                        |           |      |      |
-| 1-3  | DOS-3: Resource limit checks should not suffer from integer overflow |           |      |      |
-| 1-4  | DOS-4: Implement Robust Error/Exceptions handling for services |           |      |      |
-| 2-1  | CONFIDENTIAL-1: Purge sensitive information from exceptions  |           |      |      |
-| 2-2  | CONFIDENTIAL-2: Do not log highly sensitive information      |           |      |      |
-| 2-3  | CONFIDENTIAL-3: Consider purging highly sensitive from memory after use |           |      |      |
-| 3-1  | INJECT-1: Generate valid formatting                          |           |      |      |
-| 3-2  | INJECT-2: Avoid dynamic SQL                                  |           |      |      |
-| 3-3  | INJECT-3: XML and HTML generation requires care              |           |      |      |
-| 3-4  | INJECT-4: Avoid any untrusted data on the command line       |           |      |      |
-| 3-5  | INJECT-5: Restrict XML inclusion                             |           |      |      |
-| 3-6  | INJECT-6: Care with BMP files                                |           |      |      |
-| 3-7  | INJECT-7: Disable HTML display in Swing components           |           |      |      |
-| 3-8  | INJECT-8: Take care interpreting untrusted code              |           |      |      |
-| 3-9  | INJECT-9: Prevent injection of exceptional floating point values |           |      |      |
-| 4-1  | EXTEND-1: Limit the accessibility of classes, interfaces, methods, and fields |           |      |      |
-| 4-2  | EXTEND-2: Limit the accessibility of packages                |           |      |      |
-| 4-3  | EXTEND-3: Isolate unrelated code                             |           |      |      |
-| 4-4  | EXTEND-4: Limit exposure of ClassLoader instances            |           |      |      |
-| 4-5  | EXTEND-5: Limit the extensibility of classes and methods     |           |      |      |
-| 4-6  | EXTEND-6: Understand how a superclass can affect subclass behavior |           |      |      |
-| 5-1  | INPUT-1: Validate inputs                                     |           |      |      |
-| 5-2  | INPUT-2: Validate output from untrusted objects as input     |           |      |      |
-| 5-3  | INPUT-3: Define wrappers around native methods               |           |      |      |
-| 6-1  | MUTABLE-1: Prefer immutability for value types               |           |      |      |
-| 6-2  | MUTABLE-2: Create copies of mutable output values            |           |      |      |
-| 6-3  | MUTABLE-3: Create safe copies of mutable and subclassable input values |           |      |      |
-| 6-4  | MUTABLE-4: Support copy functionality for a mutable class    |           |      |      |
-| 6-5  | MUTABLE-5: Do not trust identity equality when overridable on input reference objects |           |      |      |
-| 6-6  | MUTABLE-6: Treat passing input to untrusted object as output |           |      |      |
-| 6-7  | MUTABLE-7: Treat output from untrusted object as input       |           |      |      |
-| 6-8  | MUTABLE-8: Define wrapper methods around modifiable internal state |           |      |      |
-| 6-9  | MUTABLE-9: Make public static fields final                   |           |      |      |
-| 6-10 | MUTABLE-10: Ensure public static final field values are constants |           |      |      |
-| 6-11 | MUTABLE-11: Do not expose mutable statics                    |           |      |      |
-| 6-12 | MUTABLE-12: Do not expose modifiable collections             |           |      |      |
-| 7-1  | OBJECT-1: Avoid exposing constructors of sensitive classes   |           |      |      |
-| 7-2  | OBJECT-2: Prevent the unauthorized construction of sensitive classes |           |      |      |
-| 7-3  | OBJECT-3: Defend against partially initialized instances of non-final classes |           |      |      |
-| 7-4  | OBJECT-4: Prevent constructors from calling methods that can be overridden |           |      |      |
-| 7-5  | OBJECT-5: Defend against cloning of non-final classes        |           |      |      |
-| 8-1  | SERIAL-1: Avoid serialization for security-sensitive classes |           |      |      |
-| 8-2  | SERIAL-2: Guard sensitive data during serialization          |           |      |      |
-| 8-3  | SERIAL-3: View deserialization the same as object construction |           |      |      |
-| 8-4  | SERIAL-4: Duplicate the SecurityManager checks enforced in a class during serialization and deserialization |           |      |      |
-| 8-5  | SERIAL-5: Understand the security permissions given to serialization and deserialization |           |      |      |
-| 8-6  | SERIAL-6: Filter untrusted serial data                       |           |      |      |
-| 9-1  | ACCESS-1: Understand how permissions are checked             |           |      |      |
-| 9-2  | ACCESS-2: Beware of callback methods                         |           |      |      |
-| 9-3  | ACCESS-3: Safely invoke java.security.AccessController.doPrivileged |           |      |      |
-| 9-4  | ACCESS-4: Know how to restrict privileges through doPrivileged |           |      |      |
-| 9-5  | ACCESS-5: Be careful caching results of potentially privileged operations |           |      |      |
-| 9-6  | ACCESS-6: Understand how to transfer context                 |           |      |      |
-| 9-7  | ACCESS-7: Understand how thread construction transfers context |           |      |      |
-| 9-8  | ACCESS-8: Safely invoke standard APIs that bypass SecurityManager checks depending on the immediate caller's class loader |           |      |      |
-| 9-9  | ACCESS-9: Safely invoke standard APIs that perform tasks using the immediate caller's class loader instance |           |      |      |
-| 9-10 | ACCESS-10: Be aware of standard APIs that perform Java language access checks against the immediate caller |           |      |      |
-| 9-11 | ACCESS-11: Be aware java.lang.reflect.Method.invoke is ignored for checking the immediate caller |           |      |      |
-| 9-12 | ACCESS-12: Avoid using caller-sensitive method names in interface classes |           |      |      |
-| 9-13 | ACCESS-13: Avoid returning the results of privileged operations |           |      |      |
-| 9-14 | ACCESS-14: Safely invoke standard APIs that perform tasks using the immediate caller's module |           |      |      |
-| 9-15 | ACCESS-15: Design and use InvocationHandlers conservatively  |           |      |      |
-| 9-16 | ACCESS-16: Plan module configuration carefully               |           |      |      |
+| Name                                                         | Supported | Note | Link |
+| ------------------------------------------------------------ | :-------: | :--- | :--: |
+| DOS-1: Beware of activities that may use disproportionate resources |           |      |      |
+| DOS-2: Release resources in all cases                        |           |      |      |
+| DOS-3: Resource limit checks should not suffer from integer overflow |           |      |      |
+| DOS-4: Implement Robust Error/Exceptions handling for services |           |      |      |
+| CONFIDENTIAL-1: Purge sensitive information from exceptions  |           |      |      |
+| CONFIDENTIAL-2: Do not log highly sensitive information      |           |      |      |
+| CONFIDENTIAL-3: Consider purging highly sensitive from memory after use |           |      |      |
+| INJECT-1: Generate valid formatting                          |           |      |      |
+| INJECT-2: Avoid dynamic SQL                                  |           |      |      |
+| INJECT-3: XML and HTML generation requires care              |           |      |      |
+| INJECT-4: Avoid any untrusted data on the command line       |           |      |      |
+| INJECT-5: Restrict XML inclusion                             |           |      |      |
+| INJECT-6: Care with BMP files                                |           |      |      |
+| INJECT-7: Disable HTML display in Swing components           |           |      |      |
+| INJECT-8: Take care interpreting untrusted code              |           |      |      |
+| INJECT-9: Prevent injection of exceptional floating point values |           |      |      |
+| EXTEND-1: Limit the accessibility of classes, interfaces, methods, and fields |           |      |      |
+| EXTEND-2: Limit the accessibility of packages                |           |      |      |
+| EXTEND-3: Isolate unrelated code                             |           |      |      |
+| EXTEND-4: Limit exposure of ClassLoader instances            |           |      |      |
+| EXTEND-5: Limit the extensibility of classes and methods     |           |      |      |
+| EXTEND-6: Understand how a superclass can affect subclass behavior |           |      |      |
+| INPUT-1: Validate inputs                                     |           |      |      |
+| INPUT-2: Validate output from untrusted objects as input     |           |      |      |
+| INPUT-3: Define wrappers around native methods               |           |      |      |
+| MUTABLE-1: Prefer immutability for value types               |           |      |      |
+| MUTABLE-2: Create copies of mutable output values            |           |      |      |
+| MUTABLE-3: Create safe copies of mutable and subclassable input values |           |      |      |
+| MUTABLE-4: Support copy functionality for a mutable class    |           |      |      |
+| MUTABLE-5: Do not trust identity equality when overridable on input reference objects |           |      |      |
+| MUTABLE-6: Treat passing input to untrusted object as output |           |      |      |
+| MUTABLE-7: Treat output from untrusted object as input       |           |      |      |
+| MUTABLE-8: Define wrapper methods around modifiable internal state |           |      |      |
+| MUTABLE-9: Make public static fields final                   |           |      |      |
+| MUTABLE-10: Ensure public static final field values are constants |           |      |      |
+| MUTABLE-11: Do not expose mutable statics                    |           |      |      |
+| MUTABLE-12: Do not expose modifiable collections             |           |      |      |
+| OBJECT-1: Avoid exposing constructors of sensitive classes   |           |      |      |
+| OBJECT-2: Prevent the unauthorized construction of sensitive classes |           |      |      |
+| OBJECT-3: Defend against partially initialized instances of non-final classes |           |      |      |
+| OBJECT-4: Prevent constructors from calling methods that can be overridden |           |      |      |
+| OBJECT-5: Defend against cloning of non-final classes        |           |      |      |
+| SERIAL-1: Avoid serialization for security-sensitive classes |           |      |      |
+| SERIAL-2: Guard sensitive data during serialization          |           |      |      |
+| SERIAL-3: View deserialization the same as object construction |           |      |      |
+| SERIAL-4: Duplicate the SecurityManager checks enforced in a class during serialization and deserialization |           |      |      |
+| SERIAL-5: Understand the security permissions given to serialization and deserialization |           |      |      |
+| SERIAL-6: Filter untrusted serial data                       |           |      |      |
+| ACCESS-1: Understand how permissions are checked             |           |      |      |
+| ACCESS-2: Beware of callback methods                         |           |      |      |
+| ACCESS-3: Safely invoke java.security.AccessController.doPrivileged |           |      |      |
+| ACCESS-4: Know how to restrict privileges through doPrivileged |           |      |      |
+| ACCESS-5: Be careful caching results of potentially privileged operations |           |      |      |
+| ACCESS-6: Understand how to transfer context                 |           |      |      |
+| ACCESS-7: Understand how thread construction transfers context |           |      |      |
+| ACCESS-8: Safely invoke standard APIs that bypass SecurityManager checks depending on the immediate caller's class loader |           |      |      |
+| ACCESS-9: Safely invoke standard APIs that perform tasks using the immediate caller's class loader instance |           |      |      |
+| ACCESS-10: Be aware of standard APIs that perform Java language access checks against the immediate caller |           |      |      |
+| ACCESS-11: Be aware java.lang.reflect.Method.invoke is ignored for checking the immediate caller |           |      |      |
+| ACCESS-12: Avoid using caller-sensitive method names in interface classes |           |      |      |
+| ACCESS-13: Avoid returning the results of privileged operations |           |      |      |
+| ACCESS-14: Safely invoke standard APIs that perform tasks using the immediate caller's module |           |      |      |
+| ACCESS-15: Design and use InvocationHandlers conservatively  |           |      |      |
+| ACCESS-16: Plan module configuration carefully               |           |      |      |
