@@ -1,0 +1,60 @@
+rules:
+- id: CA3076
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: '...'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca3076
+    category: security
+  message: |
+    If you execute Extensible Stylesheets Language Transformations (XSLT) in .NET applications insecurely,
+    the processor may resolve untrusted URI references that could disclose sensitive information to attackers,
+    leading to Denial of Service and Cross-Site attacks.
+    Replace the insecure XsltSettings argument with XsltSettings.Default or with an instance that has disabled document function and script execution.
+    Replace the XmlResolver argument with null or an XmlSecureResolver instance.
+  patterns:
+    - pattern-inside: |
+        using System.Xml;
+        using System.Xml.Xsl;
+        ...
+    - pattern-either:
+      - patterns:
+          - pattern-inside: |
+              class $C
+              {
+                  ...
+                  void $P()
+                  {
+                      ...
+                      XslCompiledTransform $XSLT = new XslCompiledTransform();
+                      ...
+                      var $SET = XsltSettings.TrustedXslt;
+                      ...
+                      var $RES = new XmlUrlResolver();
+                      ...
+                  }
+              }
+          - pattern: |
+              $XSLT.Load("...", $SET, $RES);
+      - patterns:
+          - pattern-inside: |
+              class $C
+              {
+                  ...
+                  private $T $P(XsltSettings $SET)
+                  {
+                      try
+                      {
+                          ...
+                          XslCompiledTransform $XSLT = new XslCompiledTransform();
+                          ...
+                          var $RES = new XmlUrlResolver();
+                          ...
+                      }
+                      catch {...}
+                      finally {...}
+                  }
+              }
+          - pattern: |
+              xslCompiledTransform.Load("...", $SET, $RES);
