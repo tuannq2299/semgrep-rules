@@ -1,0 +1,22 @@
+rules:
+- id: CA5365
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-20: Improper Input Validation'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5365
+    category: security
+  message: |
+    Do Not Disable HTTP Header Checking
+    Set EnableHeaderChecking to true. Or, remove the assignment to false because the default value is true.
+  patterns:
+    - pattern-inside: |
+        using System;
+        using System.Web.Configuration;
+        ...
+    - pattern: |
+        httpRuntimeSection.EnableHeaderChecking = false;
+        
+             
+          

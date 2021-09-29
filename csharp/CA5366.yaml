@@ -1,0 +1,18 @@
+rules:
+- id: CA5366
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-611: Improper Restriction of XML External Entity Reference'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5366
+    category: security
+  message: |
+    Use XmlReader For DataSet Read XML
+    Use XmlReader or its derived classes to read XML.
+  patterns:
+    - pattern: |
+         new DataSet().ReadXml(new FileStream($XMLFILENAME, FileMode.Open));
+        
+             
+          

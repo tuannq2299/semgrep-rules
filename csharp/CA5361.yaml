@@ -1,0 +1,16 @@
+rules:
+- id: CA5361
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-327: Use of a Broken or Risky Cryptographic Algorithm'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5361
+    category: security
+  message: |
+    Do not disable SChannel use of strong crypto
+  patterns:
+    - pattern-either:
+      - pattern: |
+          $APPCONTEXT.SetSwitch("Switch.System.Net.DontEnableSchUseStrongCrypto", true);     
+          

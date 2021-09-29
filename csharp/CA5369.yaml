@@ -1,0 +1,26 @@
+rules:
+- id: CA5369
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-611: Improper Restriction of XML External Entity Reference'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5369
+    category: security
+  message: |
+    Do not use XmlSerializer.Deserialize overloads other than Deserialize(XmlReader), 
+    Deserialize(XmlReader, String), Deserialize(XmlReader, XmlDeserializationEvents), 
+    or Deserialize(XmlReader, String, XmlDeserializationEvents).
+  patterns:
+    - pattern-inside: |
+        using System.IO;
+        using System.Xml.Serialization;
+        ...
+    - pattern: |
+        new XmlSerializer(typeof($CLASS).Deserialize(new FileStream("$FILENAME", FileMode.Open));
+    - pattern-not: |
+        new XmlSerializer(typeof($CLASS)).Deserialize(XmlReader.Create (new FileStream("$FILENAME", FileMode.Open)));
+            
+        
+             
+          

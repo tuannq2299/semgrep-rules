@@ -1,0 +1,33 @@
+rules:
+- id: CA5363
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-20: Improper Input Validation'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5363
+    category: security
+  message: |
+    Do not disable request validation
+  patterns:
+    - pattern-inside: |
+        using System.Web.Mvc;
+        ...
+    - pattern: |
+        class $C
+        {
+            [ValidateInput(false)]
+            public void $METHOD()
+            {
+            }
+        }
+    - pattern-not: |
+        class $C
+        {
+            [ValidateInput(true)]
+            public void $METHOD()
+            {
+            }
+        }
+             
+          

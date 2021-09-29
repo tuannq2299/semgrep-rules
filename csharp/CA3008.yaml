@@ -1,0 +1,22 @@
+rules:
+- id: CA3008
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-643: Improper Neutralization of Data within XPath Expressions (XPath Injection)'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca3008
+    category: security
+  message: |
+    Potentially untrusted HTTP request input reaches an XPath query.
+    Some approaches to fixing XPath injection vulnerabilities include:
+    - Don't construct XPath queries from user input.
+    - Validate that the input only contains a safe set of characters.
+    - Escape quotation marks.
+  patterns:
+    - pattern-inside: using System.Xml.XPath; ...
+    - pattern-either:
+      - pattern: |
+          XPathNavigator $NODE = AuthorizedOperations.SelectSingleNode(... + $INPUT + ...);
+      - pattern: |
+          XPathNavigator $NODE = AuthorizedOperations.SelectSingleNode($QUERY);

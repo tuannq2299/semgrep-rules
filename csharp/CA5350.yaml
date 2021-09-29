@@ -1,0 +1,32 @@
+rules:
+- id: CA5350
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-327: Use of a Broken or Risky Cryptographic Algorithm'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5350
+    category: security
+  message: |
+    Encryption algorithms such as TripleDES and hashing algorithms such as SHA1 and RIPEMD160 are considered to be weak.
+    These cryptographic algorithms do not provide as much security assurance as more modern counterparts. 
+    Cryptographic hashing algorithms SHA1 and RIPEMD160 provide less collision resistance than more modern hashing algorithms. 
+    The encryption algorithm TripleDES provides fewer bits of security than more modern encryption algorithms.
+    Use cryptographically stronger options:
+      - For TripleDES encryption, use Aes encryption.
+      - For SHA1 or RIPEMD160 hashing functions, use ones in the SHA-2 family (e.g. SHA512, SHA384, SHA256).
+  patterns:
+    - pattern-inside: |
+        using System.Security.Cryptography;
+        ...
+    - pattern-either:
+      - pattern: |
+          var $VAR = SHA1.Create();      
+      - pattern: |
+          var $VAR = RIPEMD160Managed.Create();
+      - pattern: |
+          using (TripleDES $VAR = TripleDES.Create())
+            {
+              ...
+            }
+          

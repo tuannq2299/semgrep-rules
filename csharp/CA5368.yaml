@@ -1,0 +1,36 @@
+rules:
+- id: CA5368
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-352: Cross-Site Request Forgery (CSRF)'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5368
+    category: security
+  message: |
+    The Page.ViewStateUserKey property is not assigned in Page.OnInit or the Page_Init method.
+  patterns:
+    - pattern-inside: |
+        using System;
+        using System.Web.UI;
+        ...
+        class $C : Page
+        {
+            ...
+        }
+    - pattern: |
+        protected override void OnInit (...)
+        {
+          ...
+        }
+    - pattern-not: |
+        protected override void OnInit (...)
+        {
+          ...
+          ViewStateUserKey = $UNPREDICTABLE_STRING;
+          ...
+        }
+            
+        
+             
+          

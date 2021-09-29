@@ -1,0 +1,29 @@
+rules:
+- id: CA5367
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-499: Serializable Class Containing Sensitive Data'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5367
+    category: security
+  message: |
+    Do not serialize types with pointer fields
+    Don't use pointer types for members in a serializable class or don't serialize the members that are pointers.
+  patterns:
+    - pattern-inside: |
+        using System;
+        ...
+        [Serializable()]
+        unsafe class $C
+        {
+            ...
+            private int* $POINTER;
+            ...
+        }
+    - pattern: |
+        private int* $POINTER;
+        
+        
+             
+          

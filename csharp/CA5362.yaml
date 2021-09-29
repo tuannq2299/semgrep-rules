@@ -1,0 +1,30 @@
+rules:
+- id: CA5362
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-502: Deserialization of Untrusted Data'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5362
+    category: security
+  message: |
+    Don't serialize the class and remove the SerializableAttribute. 
+    Or, redesign your application so that the self-referred members can be removed out of the serializable class.
+  patterns:
+    - pattern-inside: |
+        using System;
+        ...
+        [Serializable()]
+        ...
+    - pattern: |
+        class $C
+        {
+            ...
+        }
+    - pattern-not: |
+        class $C
+        {
+            [NonSerialized]
+            ...
+        }     
+          

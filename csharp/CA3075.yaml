@@ -1,0 +1,96 @@
+rules:
+- id: CA3075
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-611: Improper Restriction of XML External Entity Reference'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca3075
+    category: security
+  message: |
+    If you use insecure DtdProcessing instances or reference external entity sources,
+    the parser may accept untrusted input and disclose sensitive information to attackers.
+    Catch and process all XmlTextReader exceptions properly to avoid path information disclosure.
+    Use the XmlSecureResolver to restrict the resources that the XmlTextReader can access.
+    Do not allow the XmlReader to open any external resources by setting the XmlResolver property to null.
+    Ensure that the DataViewManager.DataViewSettingCollectionString property is assigned from a trusted source.
+  patterns:
+    - pattern-inside: |
+        using System.Xml;
+        ...
+    - pattern-either:
+      - pattern: |
+          XmlSchema $SCHEMA = XmlSchema.Read($TR, null);
+      - patterns:
+          - pattern-inside: |
+              public $T $P($PATH){
+                  ...
+                  var $READER = XmlReader.Create($PATH, $SETINGS);
+                  ...
+              }
+          - pattern: |
+              var $READER = XmlReader.Create($PATH, $SETINGS);
+      - patterns:
+          - pattern-inside: |
+              public $T $P($XML){
+                  ...
+                  XmlDocument $DOC = new XmlDocument() { XmlResolver = null };
+                  ...
+              }
+          - pattern-either:
+              - pattern: |
+                  $DOC.InnerXml = $XML;
+              - pattern: |
+                  $DOC.LoadXml($XML);
+      - patterns:
+          - pattern-inside: |
+              public $T $P($STREAM){
+                  ...
+                  XmlSerializer $SER = new XmlSerializer(typeof(UseXmlReaderForDeserialize));
+                  ...
+              }
+          - pattern: |
+              $SER.Deserialize($STREAM);
+      - patterns:
+          - pattern-inside: |
+              public $T $P($PATH){
+                  ...
+                  XPathDocument $DOC = new XPathDocument($PATH);
+                  ...
+              }
+          - pattern: |
+              XPathDocument $DOC = new XPathDocument($PATH);
+
+      - patterns:
+          - pattern-inside: |
+              class $C {
+                  ...
+                  public XmlDocument $DOC = new XmlDocument() { XmlResolver = new XmlUrlResolver() };
+                  ...
+              }
+          - pattern: |
+              public XmlDocument $DOC = new XmlDocument() { XmlResolver = new XmlUrlResolver() };
+      - patterns:
+          - pattern-inside: |
+              private $T $P()
+                {
+                    ...
+                    var $READER = XmlTextReader.Create("...");
+                    ...
+                }
+          - pattern: |
+              var $READER = XmlTextReader.Create("...");
+      - patterns:
+          - pattern-inside: |
+              public $T $P($PATH)
+                {
+                    try {
+                        ...
+                        XmlTextReader reader = new XmlTextReader($PATH);
+                        ...
+                    }
+                    catch {...}
+                    finally {...}
+                }
+          - pattern: |
+              XmlTextReader reader = new XmlTextReader($PATH);

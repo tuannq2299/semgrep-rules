@@ -1,0 +1,22 @@
+rules:
+- id: CA3006
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-601: URL Redirection to Untrusted Site (Open Redirect)'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca3006
+    category: security
+  message: |
+    Potentially untrusted HTTP request input reaches a process command.
+    If possible, avoid starting processes based on user input.
+    Validate input against a known safe set of characters and length.
+  patterns:
+    - pattern-inside: using System.Diagnostics;...
+    - pattern-either:
+      - pattern: |
+          Process.Start($INPUT);
+      - pattern: |
+          Process $Y = new Process();
+          $Y.StartInfo.FileName = $X;
+          $Y.Start();

@@ -1,0 +1,36 @@
+rules:
+- id: CA3077
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-611: Improper Restriction of XML External Entity Reference'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca3077
+    category: security
+  message: |
+    When designing an API derived from XMLDocument and XMLTextReader, be mindful of DtdProcessing. 
+    Using insecure DTDProcessing instances when referencing or resolving external entity sources or setting insecure values in the XML may lead to information disclosure.
+    Catch and process all XmlTextReader exceptions properly to avoid path information disclosure .
+    Use XmlSecureResolverinstead of XmlResolver to restrict the resources the XmlTextReader can access.
+  patterns:
+    - pattern-inside: |
+        using System.Xml;
+        ...
+    - pattern: |
+        class $C : $X
+        {
+          public $CLASS () {}
+        }
+    - pattern-not-inside: |
+        class $C : $X
+        {
+            public $CLASS () {
+              XmlResolver = null;
+            }
+        }
+    - metavariable-pattern:
+        metavariable: $X
+        patterns:
+          - pattern-either:
+              - pattern: XmlDocument
+              - pattern: XmlTextReader

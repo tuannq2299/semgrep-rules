@@ -1,0 +1,30 @@
+rules:
+- id: CA5351
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-327: Use of a Broken or Risky Cryptographic Algorithm'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5351
+    category: security
+  message: |
+    Hashing functions such as MD5 and encryption algorithms such as DES and RC2 can expose significant risk and may result in the exposure of sensitive information through trivial attack techniques, such as brute force attacks and hash collisions.
+    The cryptographic algorithms list below are subject to known cryptographic attacks. 
+    The cryptographic hash algorithm MD5 is subject to hash collision attacks. 
+    Depending on the usage, a hash collision may lead to impersonation, tampering, or other kinds of attacks on systems that rely on the unique cryptographic output of a hashing function. 
+    The encryption algorithms DES and RC2 are subject to cryptographic attacks that may result in unintended disclosure of encrypted data.
+    Use cryptographically stronger options:
+      - For MD5, use hashes in the SHA-2 family (for example, SHA512, SHA384, SHA256).
+      - For DES and RC2, use Aes encryption.
+  patterns:
+    - pattern-inside: |
+        using System.Security.Cryptography;
+        ...
+    - pattern-either:
+      - pattern: |
+          var $VAR = MD5.Create();      
+      - pattern: |
+          var $VAR = RC2.Create();
+      - pattern: |
+          var $VAR = DES.Create();
+          

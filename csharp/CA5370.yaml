@@ -1,0 +1,34 @@
+rules:
+- id: CA5370
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-20: Improper Input Validation'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5370
+    category: security
+  message: |
+    Validating untrusted XML input with the XmlValidatingReader class instantiated without an XmlReader object can potentially lead to denial of service, information disclosure, and server-side request forgery.
+  patterns:
+    - pattern-inside: |
+        using System.Xml;
+        ...
+    - pattern: |
+        public void $METHOD(...)
+        {
+            ...
+            var obj = new XmlValidatingReader(...);
+            ...
+        }
+    - pattern-not-inside: |
+        public void $METHOD(..., XmlReader $X, ...)
+        {
+            ...
+            var obj = new XmlValidatingReader($X, ...);
+            ...
+        }
+
+            
+        
+             
+          

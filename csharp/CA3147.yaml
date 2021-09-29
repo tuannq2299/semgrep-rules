@@ -1,0 +1,25 @@
+rules:
+- id: CA3147
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'Cross-Site Request Forgery (CSRF)'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca3147
+    category: security
+  message: |
+    Mark verb handlers with ValidateAntiForgeryToken
+  patterns:
+    - pattern-inside: |
+        using System.Web.Mvc;
+        public class $C : Controller
+        {
+          ...
+        }
+    - pattern: |
+        public $T $F($X, $Y){...}
+    - pattern-not-inside: |
+        [$DATA]
+        [ValidateAntiForgeryToken]
+        public $T $F($X, $Y){...}
+    

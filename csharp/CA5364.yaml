@@ -1,0 +1,35 @@
+rules:
+- id: CA5364
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-477: Use of Obsolete Function'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5364
+    category: security
+  message: |
+    Do not use deprecated security protocols
+    Don't use deprecated TLS protocol versions.
+  patterns:
+    - pattern-inside: |
+        using System;
+        using System.Net;
+        ...
+        public class $C
+        {
+            public void $METHOD()
+            {
+                ...
+            }
+        }
+    - pattern-either:
+        - pattern: |
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+        - pattern: |
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11;
+        - pattern: |
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        - pattern: |
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType) 768;
+             
+          

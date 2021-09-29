@@ -1,0 +1,31 @@
+rules:
+- id: CA5373
+  languages: [csharp]
+  severity: WARNING
+  metadata: 
+    cwe: 'CWE-477: Use of Obsolete Function'
+    references: 
+      - https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5373
+    category: security
+  message: |
+    Do not use obsolete key derivation function
+    Password-based key derivation should use the PBKDF2 algorithm with SHA-2 hashing. Rfc2898DeriveBytes.GetBytes can be used to achieve that.
+  patterns:
+    - pattern-inside: |
+        using System;
+        using System.Security.Cryptography;
+        ...
+        class $C
+        {
+            public void TestMethod(Rfc2898DeriveBytes $X, ...)
+            {
+                ...
+            }
+        }
+    - pattern-either:
+        - pattern: |
+             $X.CryptDeriveKey(...);
+        
+       
+             
+          
